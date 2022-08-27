@@ -186,6 +186,43 @@ void fun7()
     free(str);
 }
 
+typedef struct stu {
+    int age;
+    char name[20];
+} Stu;
+void printStu1(Stu s)
+{
+    cout << sizeof(s) << endl;
+    cout << s.age << s.name << endl;
+}
+void printStu2(Stu& s)
+{
+    // s.age = 100 //普通引用可以被修改
+    cout << sizeof(s) << endl;
+    cout << s.age << s.name << endl;
+}
+void printStu3(const Stu& s)
+{
+    // s.age = 100; //err 常引用不允许被修改
+    cout << sizeof(s) << endl;
+    cout << s.age << s.name << endl;
+}
+// 常量引用
+void fun8()
+{
+    Stu s = { 10, "c" };
+    printStu1(s); // 值传递，开销大
+    printStu2(s); // 直接引用，不会为形参开辟空间
+    printStu3(s); // 常引用，在函数内不会被修改
+}
+
+// 常量值引用
+void fun9()
+{
+    // int &num = 10; //10 是一个常量，必须用const修饰
+    const int& num = 10; //正确
+    cout << "num = " << num << endl;
+}
 int main()
 {
     // fun1();
@@ -194,6 +231,8 @@ int main()
     // fun4();
     // fun5();
     // fun6();
-    fun7();
+    // fun7();
+    // fun8();
+    fun9();
     return 0;
 }
